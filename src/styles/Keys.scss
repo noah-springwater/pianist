@@ -1,0 +1,63 @@
+.keys-container {
+  position: relative;
+  width: 25rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 14rem;
+
+  .white-key {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    border-right: .1rem solid black;
+    border-bottom: .1rem solid black;
+
+    // Accounts for C key - left most element
+    &:first-of-type {
+      border-left: .1rem solid black;
+
+      &.pressed {
+        box-shadow: inset -12px 0 33px -20px,
+                    inset 0px 12px 33px -20px;
+      }
+    }
+    
+    // Accounts for B key - right most element
+    &:last-of-type {
+      &.pressed {
+        box-shadow: inset 12px 0px 33px -20px,
+                    inset 0px 12px 33px -20px;
+      }
+    }
+
+    &.flat {
+      &:before {
+        content: '';
+        position: absolute;
+        width: 50%;
+        height: 60%;
+        top: 0;
+        background-color: black;
+        left: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    .key-name {
+      font-size: 2.5rem;
+      padding-bottom: 1rem;
+    }
+
+    // All other keys that are pressed not in
+    &.pressed {
+      box-shadow: inset -12px 0px 33px -20px,
+                  inset 12px 0px 33px -20px,
+                  inset 0px 12px 33px -20px;
+      height: 13.9rem;
+    }
+  }
+}
