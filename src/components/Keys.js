@@ -1,30 +1,30 @@
 import React, { Component } from 'react';
+import { keyAction } from '../actions/keyAction';
 import '../styles/Keys.scss'
+import { connect } from 'react-redux';
+
 
 class Keys extends Component {
   constructor(props) {
     super(props);
-
-    this.addClass = this.addClass.bind(this);
-  }
-
-  addClass(event) {
-    // event.preventDefault();
-    let e = event.target;
-
-    if (!e.classList.contains('pressed')) {
-      // console.log('added class')
-      e.classList.add('pressed')
-      setTimeout(() => {
-        e.classList.remove('pressed')
-      }, 1000)
-    }
-
-
-    // console.log(e.querySelector('span').innerHTML);
   }
 
   render() {
+    
+    let allKeys = document.querySelectorAll('.key-name')
+    allKeys.forEach((item) => {
+      this.props.keyReducer.keys.forEach((store, index) => {
+        if (store === item.innerHTML) {
+          setTimeout(() => {
+            item.parentElement.classList.add('pressed');
+            setTimeout(() => {
+              item.parentElement.classList.remove('pressed');
+            }, 1000)
+          }, 1000 * index)
+        }
+      })
+    });
+
     return (
       <div className="keys-container">
         <div className="white-key flat" onClick={this.addClass}>
@@ -53,4 +53,8 @@ class Keys extends Component {
   }
 }
 
-export default Keys;
+const mapStateToProps = state => ({
+  ...state
+})
+
+export default connect(mapStateToProps, null)(Keys);

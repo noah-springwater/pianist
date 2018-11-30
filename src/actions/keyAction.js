@@ -1,8 +1,11 @@
 import { dispatch } from "rxjs/internal/observable/range";
 
-export const keyAction = () => dispatch => {
-  dispatch({
-    type: 'KEY_ACTION',
-    payload: [2],
-  })
+export const keyAction = (pianoKey) => dispatch => {
+  setTimeout(() => {
+    dispatch({
+      type: 'KEY_ACTION',
+      payload: pianoKey,
+    })
+  }, 1000)
+  
 }
