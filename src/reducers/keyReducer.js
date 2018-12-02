@@ -1,10 +1,28 @@
-export default (state = {keys: []}, action) => {
+export default (state = {keys: [], play: false, status: ''}, action) => {
   switch (action.type) {
     case 'KEY_ACTION':
       return {
         keys: action.payload,
-        hasClass: true,
       }
+
+    case 'ADD_KEY':
+      return {
+        ...state,
+        keys: [...state.keys, action.payload]
+      }
+
+    case 'HANDLE_PLAY':
+      return {
+        ...state,
+        play: !state.play
+      }
+
+    case 'SET_STATUS':
+      return {
+        ...state,
+        status: action.payload
+      }
+
     default:
       return state
   }
