@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setStatus, togglePlay, addKey } from '../actions/keyAction';
+import { clearArray, setStatus, togglePlay, addKey } from '../actions/keyAction';
 import '../styles/Keys.scss'
 import { connect } from 'react-redux';
 
@@ -33,6 +33,7 @@ class Keys extends Component {
               itemsProcess++;
               if (itemsProcess === array.length) {
                 this.props.togglePlay()
+                this.props.clearArray()
               }
             }, 1000 * index)
           }
@@ -79,7 +80,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addKey: (key) => dispatch(addKey(key)),
   togglePlay: () => dispatch(togglePlay()),
-  setStatus: (status) => dispatch(setStatus(status))
+  setStatus: (status) => dispatch(setStatus(status)),
+  clearArray: () => dispatch(clearArray()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Keys);

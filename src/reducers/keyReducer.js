@@ -23,6 +23,12 @@ export default (state = {keys: [], play: false, status: ''}, action) => {
         status: action.payload
       }
 
+    case 'CLEAR_ARRAY':
+      return {
+        ...state,
+        keys: []
+      }
+
     default:
       return state
   }

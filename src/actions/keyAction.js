@@ -26,3 +26,9 @@ export const setStatus = (status) => dispatch => {
     payload: status
   })
 }
+
+export const clearArray = () => dispatch => {
+  dispatch({
+    type: 'CLEAR_ARRAY',
+  })
+}
