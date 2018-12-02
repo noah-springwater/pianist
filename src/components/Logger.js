@@ -7,8 +7,8 @@ class Logger extends Component {
   constructor(props) {
     super(props);
 
-    this.onKeyPressed = this.onKeyPressed.bind(this);
     this.setStatus = this.setStatus.bind(this);
+    this.onKeyPressed = this.onKeyPressed.bind(this);
     this.logKeys = this.logKeys.bind(this);
   }
 
@@ -28,17 +28,12 @@ class Logger extends Component {
         typedKey !== 'B') {
       this.setStatus('SELECT or TYPE a valid note!')
     } else {
-      if (this.props.keyReducer.status !== '') {
-        this.setStatus('');
-      }
+      this.setStatus('');
       this.props.addKey(typedKey);
     }
   }
 
-  logKeys(e) {
-    e.preventDefault();
-    // let arrayOfKeys = this.props.keyReducer.keys.map(item => item.trim())
-    // console.log(this.props.keyReducer.keys)
+  logKeys() {
     this.props.togglePlay();
   }
 
@@ -46,8 +41,16 @@ class Logger extends Component {
     return (
       <div className="logger-container">
           <div className="play-button" onClick={this.logKeys}></div>
-          <input type="text" value={this.props.keyReducer.keys} onKeyDown={this.onKeyPressed} />
-          <span className="motivation-text">{this.props.keyReducer.status}</span>
+          <div className="input-container">
+            <input type="text" value={this.props.keyReducer.keys} onKeyDown={this.onKeyPressed} />
+            { this.props.keyReducer.status ? (
+              <div className="error-container">
+                <span className="error-message">{this.props.keyReducer.status}</span>
+              </div>
+              ) : (
+                ''
+              )}
+          </div>
       </div>
     );
   }

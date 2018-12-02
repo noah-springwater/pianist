@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { togglePlay, addKey } from '../actions/keyAction';
+import { setStatus, togglePlay, addKey } from '../actions/keyAction';
 import '../styles/Keys.scss'
 import { connect } from 'react-redux';
 
@@ -15,6 +15,7 @@ class Keys extends Component {
     let targetEl = e.target.querySelector('span').innerHTML;
     console.log(targetEl, 'tapping keys');
     this.props.addKey(targetEl);
+    this.props.setStatus('');
   }
 
   playNotes() {
@@ -42,7 +43,7 @@ class Keys extends Component {
 
   render() {
     this.playNotes();
-    
+
     return (
       <div className="keys-container">
         <div className="white-key flat" onClick={this.addKey}>
@@ -77,7 +78,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   addKey: (key) => dispatch(addKey(key)),
-  togglePlay: () => dispatch(togglePlay())
+  togglePlay: () => dispatch(togglePlay()),
+  setStatus: (status) => dispatch(setStatus(status))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Keys);
