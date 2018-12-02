@@ -1,12 +1,3 @@
-import { dispatch } from "rxjs/internal/observable/range";
-
-export const keyAction = (key) => {
-  dispatch({
-    type: 'KEY_ACTION',
-    paylaod: key
-  })
-}
-
 export const addKey = (individualKey) => dispatch => {
   dispatch({
     type: 'ADD_KEY',

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { keyAction, addKey, togglePlay, setStatus } from '../actions/keyAction';
+import { addKey, togglePlay, setStatus } from '../actions/keyAction';
 import '../styles/Logger.scss';
 import { connect } from 'react-redux';
 
@@ -34,7 +34,9 @@ class Logger extends Component {
   }
 
   logKeys() {
-    this.props.togglePlay();
+    this.props.keyReducer.keys.length ?
+      this.props.togglePlay() :
+      this.props.setStatus('Unless you\'re John Cage, please SELECT or TYPE a valid piano key!')
   }
 
   render() {
@@ -61,7 +63,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  keyAction: (key) => dispatch(keyAction(key)),
   addKey: (key) => dispatch(addKey(key)),
   togglePlay: () => dispatch(togglePlay()),
   setStatus: (status) => dispatch(setStatus(status))

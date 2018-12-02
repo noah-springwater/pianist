@@ -3,7 +3,6 @@ import { clearArray, setStatus, togglePlay, addKey } from '../actions/keyAction'
 import '../styles/Keys.scss'
 import { connect } from 'react-redux';
 
-
 class Keys extends Component {
   constructor(props) {
     super(props);
@@ -13,37 +12,39 @@ class Keys extends Component {
 
   addKey(e) {
     let targetEl = e.target.querySelector('span').innerHTML;
-    console.log(targetEl, 'tapping keys');
     this.props.addKey(targetEl);
-    this.props.setStatus('');
-  }
-
-  playNotes() {
-    if (this.props.keyReducer.play) {
-      let itemsProcess = 0;
-      let allKeys = document.querySelectorAll('.key-name')
-      allKeys.forEach((item) => {
-        this.props.keyReducer.keys.forEach((store, index, array) => {
-          if (store === item.innerHTML) {
-            setTimeout(() => {
-              item.parentElement.classList.add('pressed');
-              setTimeout(() => {
-                item.parentElement.classList.remove('pressed');
-              }, 1000)
-              itemsProcess++;
-              if (itemsProcess === array.length) {
-                this.props.togglePlay()
-                this.props.clearArray()
-              }
-            }, 1000 * index)
-          }
-        })
-      });
+    if (this.props.keyReducer.status) {
+      this.props.setStatus('');
     }
   }
 
+  playNotes() {
+    let itemsProcess = 0;
+    let allKeys = document.querySelectorAll('.key-name')
+
+    allKeys.forEach((item) => {
+      this.props.keyReducer.keys.forEach((store, index, array) => {
+        if (store === item.innerHTML) {
+          setTimeout(() => {
+            item.parentElement.classList.add('pressed');
+            setTimeout(() => {
+              item.parentElement.classList.remove('pressed');
+            }, 900)
+            itemsProcess++;
+            if (itemsProcess === array.length) {
+              this.props.togglePlay()
+              this.props.clearArray()
+            }
+          }, 1000 * index)
+        }
+      })
+    });
+  }
+
   render() {
-    this.playNotes();
+    if (this.props.keyReducer.play) {
+      this.playNotes();
+    }
 
     return (
       <div className="keys-container">
