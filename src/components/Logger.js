@@ -7,9 +7,14 @@ class Logger extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      pressedKey: null
+    }
+
     this.setStatus = this.setStatus.bind(this);
     this.onKeyPressed = this.onKeyPressed.bind(this);
     this.logKeys = this.logKeys.bind(this);
+    this.updateOnKeyPressed = this.updateOnKeyPressed.bind(this);
   }
 
   setStatus(currentStatus) {
@@ -17,7 +22,7 @@ class Logger extends Component {
   }
 
   onKeyPressed(e) {
-    let typedKey = e.key.toUpperCase();
+    let typedKey = this.state.pressedKey;
     if (typedKey !== 'C' && 
         typedKey !== 'D' &&
         typedKey !== 'E' &&
@@ -33,6 +38,12 @@ class Logger extends Component {
     }
   }
 
+  updateOnKeyPressed(e) {
+    this.setState({
+      pressedKey: e.key.toUpperCase(),
+    })
+  }
+
   logKeys() {
     this.props.keyReducer.keys.length ?
       this.props.togglePlay() :
@@ -44,7 +55,7 @@ class Logger extends Component {
       <div className="logger-container">
           <div className="play-button" onClick={this.logKeys}></div>
           <div className="input-container">
-            <input type="text" value={this.props.keyReducer.keys} onKeyDown={this.onKeyPressed} />
+            <input type="text" value={this.props.keyReducer.keys} onKeyDown={this.updateOnKeyPressed} onChange={this.onKeyPressed} />
             { this.props.keyReducer.status ? (
               <div className="error-container">
                 <span className="error-message">{this.props.keyReducer.status}</span>

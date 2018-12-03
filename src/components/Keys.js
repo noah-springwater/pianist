@@ -29,13 +29,13 @@ class Keys extends Component {
             item.parentElement.classList.add('pressed');
             setTimeout(() => {
               item.parentElement.classList.remove('pressed');
-            }, 900)
+            }, 1000)
             itemsProcess++;
             if (itemsProcess === array.length) {
               this.props.togglePlay()
               this.props.clearArray()
             }
-          }, 1000 * index)
+          }, 1100 * index)
         }
       })
     });
